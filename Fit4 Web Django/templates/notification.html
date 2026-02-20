@@ -1,0 +1,103 @@
+{% include 'admin_header.html' %}
+
+
+    <!-- <form method="post">
+        <table border="3">
+            <tr>
+                <th>Notification</th>
+                <td><input type="text" name="notification"></td>
+            </tr>
+            <tr >
+                <td colspan="2" align="center"><input type="submit" name="submit"></td>
+            </tr>
+        </table>
+    </form>
+    <br>
+
+    <table border="1">
+        <tr>
+            <th>Notification</th>
+        </tr>
+        {% for i in notification %}
+        <tr>
+            <td>{{i.Not_text}}</td>
+            <td>{{i.date}}</td>
+            <td><a href="notif_delete/{{i.Noti_id}}">delete</a></td>
+        </tr>
+        {% endfor %}
+    </table> -->
+    
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+          <h1>Contact</h1>
+          <nav>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item">Pages</li>
+              <li class="breadcrumb-item active">Contact</li>
+            </ol>
+          </nav>
+        </div>End Page Title
+    
+        <section class="section contact">
+    
+          <div class="row gy-4">
+
+            <div class="col-xl-6">
+                <div class="card p-4">
+                  <form action="" method="post" class="php-email-form">
+                    <div class="row gy-4">
+      
+                      <!-- <div class="col-md-6">
+                        <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                      </div>
+      
+                      <div class="col-md-6 ">
+                        <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+                      </div> -->
+      
+                      <div class="col-md-12">
+                        <input type="text" class="form-control" name="notification" placeholder="place message here" required>
+                      </div>
+      
+                      <!-- <div class="col-md-12">
+                        <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
+                      </div> -->
+      
+                      <div class="col-md-12 text-center">
+                        <div class="loading">Loading</div>
+                        <div class="error-message"></div>
+                        <div class="sent-message">Your message has been sent. Thank you!</div>
+      
+                        <button type="submit" name="Level" class="w-100">Submit</button>
+                      </div>
+      
+                    </div>
+                  </form>
+                </div>
+      
+              </div>
+    
+            <div class="col-xl-6">
+                <table class="table">
+                    <tr>
+                        <th></th>
+                        <th>Notification</th>
+                        <th></th>
+                    </tr>
+                    {% for i in notification %}
+                    <tr>
+                        <td>{{i.Not_text}}</td>
+                        <td>{{i.date}}</td>
+                        <td><a href="notif_delete/{{i.Noti_id}}">delete</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+          </div>
+    
+        </section>
+    
+      </main><!-- End #main -->
+    {% include 'admin_footer.html' %}

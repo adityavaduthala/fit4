@@ -1,0 +1,114 @@
+{% include 'admin_header.html' %}
+
+    <!-- <h1> Category Management Panel</h1>
+
+    <form method="post">
+        <table border="3">
+            <tr>
+                <th>Level</th>
+                <td><select name="lid" id="" required>
+                    <option value="">Select level</option>
+                    {% for i in a %}
+                    <option value="{{i.pk}}">{{i.Lname}}</option>
+                    {% endfor %}
+                </select></td>
+
+            </tr>
+            <tr>
+                <th>Cname</th>
+                <td><input type="text" name="Cname"></td>
+            </tr>
+            <tr >
+                <td colspan="2" align="center"><input type="submit" name="Category" value="submit"></td>
+            </tr>
+        </table>
+    </form>
+
+    <table border="1">
+        <tr>
+            <th>Category name</th>
+        </tr>
+        {% for j in b %}
+        <tr>
+            <td>{{j.Cname}}</td>
+            <td><a href="">update</a></td>
+            <td><a href="cat_delete/{{j.Category_id}}">delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>     -->
+
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+          <h1>Contact</h1>
+          <nav>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item">Pages</li>
+              <li class="breadcrumb-item active">Contact</li>
+            </ol>
+          </nav>
+        </div>End Page Title
+    
+        <section class="section contact">
+    
+          <div class="row gy-4">
+
+            <div class="col-xl-6">
+                <div class="card p-4">
+                  <form action="" method="post" class="php-email-form">
+                    <div class="row gy-4">
+      
+                      <div class="col-md-12">
+                        <select name="lid" id="" class="form-control w-100" required>
+                            <option value="">Select level</option>
+                            {% for i in a %}
+                            <option value="{{i.pk}}">{{i.Lname}}</option>
+                            {% endfor %}
+                        </select>
+                      </div>
+      
+                      <div class="col-md-12">
+                        <input type="text" class="form-control" name="Cname" placeholder="Category .." required>
+                      </div>
+      
+                      <!-- <div class="col-md-12">
+                        <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
+                      </div> -->
+      
+                      <div class="col-md-12 text-center">
+                        <div class="loading">Loading</div>
+                        <div class="error-message"></div>
+                        <div class="sent-message">Your message has been sent. Thank you!</div>
+      
+                        <button type="submit" name="submit" class="w-100">Submit</button>
+                      </div>
+      
+                    </div>
+                  </form>
+                </div>
+      
+              </div>
+    
+            <div class="col-xl-6">
+                <table class="table">
+                    <tr>
+                        <th>Category name</th>
+                        <th>Level</th>
+                        <th></th>
+                    </tr>
+                    {% for j in b %}
+                    <tr>
+                        <td>{{j.Cname}}</td>
+                        <td>{{j.level.Lname}}</td>
+                        <td><a href="cat_delete/{{j.Category_id}}">delete</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>   
+            </div>
+          </div>
+    
+        </section>
+    
+      </main><!-- End #main -->
+    {% include 'admin_footer.html' %}

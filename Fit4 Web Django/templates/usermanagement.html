@@ -1,0 +1,75 @@
+{% include 'admin_header.html' %}
+
+    <!-- <h1>User Management Panel</h1>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Age</th>
+            <th>gender</th>
+            <th>height</th>
+            <th>weight</th>
+        </tr>
+        {% for i in user %}
+        <tr>
+            <td>{{i.Name}}</td>
+            <td>{{i.email}}</td>
+            <td>{{i.Phone}}</td>
+            <td>{{i.age}}</td>
+            <td>{{i.gender}}</td>
+            <td>{{i.height}}</td>
+            <td>{{i.weight}}</td>
+        </tr>
+        {% endfor %}
+    </table> -->
+
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+          <h1>Contact</h1>
+          <nav>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item">Pages</li>
+              <li class="breadcrumb-item active">Contact</li>
+            </ol>
+          </nav>
+        </div>End Page Title
+    
+        <section class="section contact">
+    
+          <div class="row gy-4">
+
+            
+    
+             <div class="col-xl-12">
+                <table class="table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Age</th>
+                        <th>gender</th>
+                        <th>height</th>
+                        <th>weight</th>
+                    </tr>
+                    {% for i in user %}
+                    <tr>
+                        <td>{{i.Name}}</td>
+                        <td>{{i.email}}</td>
+                        <td>{{i.Phone}}</td>
+                        <td>{{i.age}}</td>
+                        <td>{{i.gender}}</td>
+                        <td>{{i.height}}</td>
+                        <td>{{i.weight}}</td>
+                    </tr>
+                    {% endfor %}
+                </table> 
+            </div>
+          </div>
+    
+        </section>
+    
+      </main><!-- End #main -->
+    {% include 'admin_footer.html' %}
