@@ -1,124 +1,139 @@
 {% include 'admin_header.html' %}
 
 <main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Exercise</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item">Pages</li>
+        <li class="breadcrumb-item active">Exercise</li>
+      </ol>
+    </nav>
+  </div>
+  End Page Title
 
-    <div class="pagetitle">
-      <h1>Contact</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Pages</li>
-          <li class="breadcrumb-item active">Contact</li>
-        </ol>
-      </nav>
-    </div>End Page Title
+  <section class="section Exercise">
+    <div class="row gy-4">
+      <div class="col-xl-6">
+        <div class="card p-4">
+          <form
+            action=""
+            method="post"
+            class="php-email-form"
+            enctype="multipart/form-data"
+          >
+            <div class="row gy-4">
+              <div class="col-md-6">
+                <select name="cid" id="" required class="form-control">
+                  <option value="">Select Category</option>
+                  {% for i in z %}
+                  <option value="{{i.pk}}">
+                    {{i.Cname}} : {{i.level.Lname}}
+                  </option>
+                  {% endfor %}
+                </select>
+              </div>
 
-    <section class="section contact">
+              <div class="col-md-12">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="Exercise"
+                  placeholder="Enter Exercise here"
+                  required
+                />
+              </div>
 
-      <div class="row gy-4">
+              <div class="col-md-12">
+                <input
+                  type="file"
+                  class="form-control mt-2"
+                  name="gif"
+                  accept="image/gif"
+                />
+              </div>
 
-        <div class="col-xl-6">
-            <div class="card p-4">
-              <form action="" method="post" class="php-email-form" enctype="multipart/form-data">
-                <div class="row gy-4">
-  
-                  <div class="col-md-6">
-                    <select name="cid" id="" required class="form-control">
-                        <option value="">Select Category</option>
-                        {% for i in z %}
-                        <option value="{{i.pk}}">{{i.Cname}} : {{i.level.Lname}}</option>
-                        {% endfor %}
-                    </select>
-                  </div>
-  
-                  
-  
-                  <div class="col-md-12">
-                    <input type="text" class="form-control" name="Exercise" placeholder="Enter Exercise here" required>
-                  </div>
+              <div class="col-md-12">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="Fdetails"
+                  placeholder="Enter Format details here"
+                  required
+                />
+              </div>
 
-                  <div class="col-md-12">
-                  <input type="file" class="form-control mt-2" name="gif" accept="image/gif">
-                  </div>
+              <div class="col-md-12">
+                <select name="day1" id="" required class="form-control">
+                  <option value="">Select Day1</option>
+                  <option value="Monday">Monday</option>
+                  <option value="Tuesday">Tuesday</option>
+                  <option value="Wednesday">Wednesday</option>
+                  <option value="Thursday">Thursday</option>
+                  <option value="Friday">Friday</option>
+                  <option value="Saturday">Saturday</option>
+                  <option value="Sunday">Sunday</option>
+                </select>
+              </div>
 
+              <div class="col-md-12">
+                <select name="day2" id="" required class="form-control">
+                  <option value="">Select Day2</option>
+                  <option value="Monday">Monday</option>
+                  <option value="Tuesday">Tuesday</option>
+                  <option value="Wednesday">Wednesday</option>
+                  <option value="Thursday">Thursday</option>
+                  <option value="Friday">Friday</option>
+                  <option value="Saturday">Saturday</option>
+                  <option value="Sunday">Sunday</option>
+                </select>
+              </div>
 
-                  <div class="col-md-12">
-                    <input type="text" class="form-control" name="Fdetails" placeholder="Enter Format details here" required>
-                  </div>
-
-                  <div class="col-md-12">
-                    <select name="day1" id="" required class="form-control">
-                        <option value="">Select Day1</option>
-                        <option value="Monday">Monday</option>
-                        <option value="Tuesday">Tuesday</option>
-                        <option value="Wednesday">Wednesday</option>
-                        <option value="Thursday">Thursday</option>
-                        <option value="Friday">Friday</option>
-                        <option value="Saturday">Saturday</option>
-                        <option value="Sunday">Sunday</option>
-                    </select>
-                  </div>
-
-                  <div class="col-md-12">
-                    <select name="day2" id="" required class="form-control">
-                        <option value="">Select Day2</option>
-                        <option value="Monday">Monday</option>
-                        <option value="Tuesday">Tuesday</option>
-                        <option value="Wednesday">Wednesday</option>
-                        <option value="Thursday">Thursday</option>
-                        <option value="Friday">Friday</option>
-                        <option value="Saturday">Saturday</option>
-                        <option value="Sunday">Sunday</option>
-                    </select>
-                  </div>
-
-                  
-  
-                  <!-- <div class="col-md-12">
+              <!-- <div class="col-md-12">
                     <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
                   </div> -->
-  
-                  <div class="col-md-12 text-center">
-                    <div class="loading">Loading</div>
-                    <div class="error-message"></div>
-                    <div class="sent-message">Your message has been sent. Thank you!</div>
-  
-                    <button type="submit" name="Level" class="w-100">Submit</button>
-                  </div>
-  
-                </div>
-              </form>
-            </div>
-  
-          </div>
 
-          <div class="col-xl-6">
-            <table class="table">
-                <tr>
-                    <th>Exercise</th>
-                    <th>Details</th>
-                    <th>Animation</th>
-                    <th>Action</th>
-                </tr>
-                {% for i in Exercise %}
-                <tr>
-                    <td>{{ i.Ename }}</td>
-                    <td>{{ i.Format_details }}</td>
-                    <td>
-                        <img src="/static/{{ i.file }}" alt="{{ i.Ename }}" width="100" height="100">
-                    </td>
-                    <td><a href="exercise_delete/{{ i.Exercise_id }}">delete</a></td>
-                </tr>
-                {% endfor %}
-            </table>
+              <div class="col-md-12 text-center">
+                <div class="loading"></div>
+                <div class="error-message"></div>
+                <div class="sent-message"></div>
+
+                <button type="submit" name="Level" class="w-100">Submit</button>
+              </div>
+            </div>
+          </form>
         </div>
-        
       </div>
 
-    </section>
+      <div class="col-xl-6">
+        <table class="table">
+          <tr>
+            <th>Exercise</th>
+            <th>Details</th>
+            <th>Animation</th>
+            <th>Action</th>
+          </tr>
+          {% for i in Exercise %}
+          <tr>
+            <td>{{ i.Ename }}</td>
+            <td>{{ i.Format_details }}</td>
+            <td>
+              <img
+                src="/static/{{ i.file }}"
+                alt="{{ i.Ename }}"
+                width="100"
+                height="100"
+              />
+            </td>
+            <td><a href="exercise_delete/{{ i.Exercise_id }}">delete</a></td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+<!-- End #main -->
 
-  </main><!-- End #main -->
-
-
-    
-    {% include 'admin_footer.html' %}
+{% include 'admin_footer.html' %}
