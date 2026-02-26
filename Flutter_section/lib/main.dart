@@ -41,7 +41,7 @@ class _AmbulanceState extends State<Ambulance> {
           bodyLarge: TextStyle(color: Colors.black87),
           bodySmall: TextStyle(color: Colors.black54),
         ),
-        cardTheme: CardThemeData(
+        cardTheme: CardTheme(
           elevation: 4,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
@@ -84,8 +84,8 @@ class _ipsetstate extends State<ipset> {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: true,
+    return WillPopScope(
+      onWillPop: () async => true,
       child: Scaffold(
         body: Container(
           decoration: const BoxDecoration(
@@ -148,25 +148,32 @@ class _ipsetstate extends State<ipset> {
                             style: const TextStyle(color: Colors.white),
                             decoration: InputDecoration(
                               labelText: "IP Address",
-                              labelStyle: TextStyle(color: Colors.white.withOpacity(0.7)),
+                              labelStyle: TextStyle(
+                                  color: Colors.white.withOpacity(0.7)),
                               hintText: "Enter a valid IP address",
-                              hintStyle: TextStyle(color: Colors.white.withOpacity(0.3)),
-                              prefixIcon: Icon(Icons.wifi, color: Colors.white.withOpacity(0.7)),
+                              hintStyle: TextStyle(
+                                  color: Colors.white.withOpacity(0.3)),
+                              prefixIcon: Icon(Icons.wifi,
+                                  color: Colors.white.withOpacity(0.7)),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide(color: Colors.white.withOpacity(0.3)),
+                                borderSide: BorderSide(
+                                    color: Colors.white.withOpacity(0.3)),
                               ),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide(color: Colors.white.withOpacity(0.3)),
+                                borderSide: BorderSide(
+                                    color: Colors.white.withOpacity(0.3)),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
-                                borderSide: const BorderSide(color: Colors.white, width: 2),
+                                borderSide: const BorderSide(
+                                    color: Colors.white, width: 2),
                               ),
                               errorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
-                                borderSide: const BorderSide(color: Colors.white70),
+                                borderSide:
+                                    const BorderSide(color: Colors.white70),
                               ),
                               filled: true,
                               fillColor: Colors.white.withOpacity(0.05),
@@ -185,11 +192,13 @@ class _ipsetstate extends State<ipset> {
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
                                 String ip = ipController.text.toString();
-                                final sh = await SharedPreferences.getInstance();
+                                final sh =
+                                    await SharedPreferences.getInstance();
                                 sh.setString("url", "http://" + ip + ":5000/");
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => login()),
+                                  MaterialPageRoute(
+                                      builder: (context) => login()),
                                 );
                               }
                             },

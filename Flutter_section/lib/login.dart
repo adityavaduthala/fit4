@@ -21,15 +21,13 @@ class _loginState extends State<login> {
   @override
   Widget build(BuildContext context) {
     final primary = Theme.of(context).colorScheme.primary;
-    return PopScope(
-      canPop: false,
-      onPopInvokedWithResult: (didPop, result) {
-        if (!didPop) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const Ambulance()),
-          );
-        }
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const Ambulance()),
+        );
+        return false;
       },
       child: Scaffold(
         body: Container(
@@ -80,19 +78,23 @@ class _loginState extends State<login> {
                             controller: usernameController,
                             style: const TextStyle(color: Colors.black),
                             decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.person_outline, color: primary),
+                              prefixIcon:
+                                  Icon(Icons.person_outline, color: primary),
                               labelText: 'Username',
-                              labelStyle: const TextStyle(color: Colors.black54),
+                              labelStyle:
+                                  const TextStyle(color: Colors.black54),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12.0),
-                                borderSide: BorderSide(color: Colors.grey.shade400),
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade400),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12.0),
-                                borderSide: BorderSide(color: primary, width: 2),
+                                borderSide:
+                                    BorderSide(color: primary, width: 2),
                               ),
                               fillColor: Colors.grey.shade50,
                               filled: true,
@@ -110,19 +112,23 @@ class _loginState extends State<login> {
                             style: const TextStyle(color: Colors.black),
                             obscureText: true,
                             decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.lock_outline, color: primary),
+                              prefixIcon:
+                                  Icon(Icons.lock_outline, color: primary),
                               labelText: 'Password',
-                              labelStyle: const TextStyle(color: Colors.black54),
+                              labelStyle:
+                                  const TextStyle(color: Colors.black54),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12.0),
-                                borderSide: BorderSide(color: Colors.grey.shade400),
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade400),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12.0),
-                                borderSide: BorderSide(color: primary, width: 2),
+                                borderSide:
+                                    BorderSide(color: primary, width: 2),
                               ),
                               fillColor: Colors.grey.shade50,
                               filled: true,
@@ -142,39 +148,53 @@ class _loginState extends State<login> {
                                   onPressed: () async {
                                     if (_formKey.currentState!.validate()) {
                                       try {
-                                        final sh = await SharedPreferences.getInstance();
-                                        String uname = usernameController.text.trim();
+                                        final sh = await SharedPreferences
+                                            .getInstance();
+                                        String uname =
+                                            usernameController.text.trim();
                                         String paswd = passwordController.text;
-                                        String url = sh.getString("url").toString();
+                                        String url =
+                                            sh.getString("url").toString();
 
                                         var data = await http.post(
                                           Uri.parse(url + "and_login"),
-                                          body: {'username': uname, 'password': paswd},
+                                          body: {
+                                            'username': uname,
+                                            'password': paswd
+                                          },
                                         );
                                         var jasondata = json.decode(data.body);
-                                        String status = jasondata['status'].toString();
+                                        String status =
+                                            jasondata['status'].toString();
 
                                         if (status == "user") {
-                                          sh.setString("lid", jasondata['lid'].toString());
+                                          sh.setString("lid",
+                                              jasondata['lid'].toString());
                                           if (!context.mounted) return;
                                           Navigator.pushReplacement(
                                             context,
-                                            MaterialPageRoute(builder: (context) => const Home()),
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const Home()),
                                           );
                                         } else {
                                           if (!context.mounted) return;
-                                          ScaffoldMessenger.of(context).showSnackBar(
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
                                             const SnackBar(
-                                              content: Text('Invalid username or password'),
+                                              content: Text(
+                                                  'Invalid username or password'),
                                               backgroundColor: Colors.red,
                                             ),
                                           );
                                         }
                                       } catch (e) {
                                         if (!context.mounted) return;
-                                        ScaffoldMessenger.of(context).showSnackBar(
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
                                           const SnackBar(
-                                            content: Text('An error occurred. Please try again.'),
+                                            content: Text(
+                                                'An error occurred. Please try again.'),
                                             backgroundColor: Colors.red,
                                           ),
                                         );
@@ -183,12 +203,16 @@ class _loginState extends State<login> {
                                   },
                                   style: FilledButton.styleFrom(
                                     backgroundColor: primary,
-                                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 16.0),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(12.0),
                                     ),
                                   ),
-                                  child: const Text('Login', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600)),
+                                  child: const Text('Login',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w600)),
                                 ),
                               ),
                               const SizedBox(width: 16.0),
@@ -197,11 +221,14 @@ class _loginState extends State<login> {
                                   onPressed: () {
                                     Navigator.push(
                                       context,
-                                      MaterialPageRoute(builder: (context) => const RegistrationPage()),
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const RegistrationPage()),
                                     );
                                   },
                                   style: OutlinedButton.styleFrom(
-                                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 16.0),
                                     side: BorderSide(color: primary),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(12.0),
@@ -209,7 +236,10 @@ class _loginState extends State<login> {
                                   ),
                                   child: Text(
                                     'Sign Up',
-                                    style: TextStyle(fontSize: 16.0, color: primary, fontWeight: FontWeight.w600),
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: primary,
+                                        fontWeight: FontWeight.w600),
                                   ),
                                 ),
                               ),

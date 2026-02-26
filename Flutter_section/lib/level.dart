@@ -60,31 +60,33 @@ class _LevelState extends State<Level> {
         arr = dataRaw;
       }
 
-      String status = (jsondata['status'] ?? jsondata['Status'] ?? '').toString();
+      String status =
+          (jsondata['status'] ?? jsondata['Status'] ?? '').toString();
       setState(() {
         Lid.clear();
         Lname.clear();
         _loading = false;
         _error = false;
         for (int i = 0; i < arr.length; i++) {
-            Map<String, dynamic> item = {};
-            if (arr[i] is Map) {
-              item = Map<String, dynamic>.from(arr[i] as Map);
-            }
-            Object? id = item['lid'] ?? item['level_id'] ?? item['Lid'];
-            Object? name = item['lname'] ?? item['Lname'];
-            if (id != null && name != null) {
-              Lid.add(id.toString());
-              Lname.add(name.toString());
-            }
+          Map<String, dynamic> item = {};
+          if (arr[i] is Map) {
+            item = Map<String, dynamic>.from(arr[i] as Map);
           }
+          Object? id = item['lid'] ?? item['level_id'] ?? item['Lid'];
+          Object? name = item['lname'] ?? item['Lname'];
+          if (id != null && name != null) {
+            Lid.add(id.toString());
+            Lname.add(name.toString());
+          }
+        }
       });
     } catch (e) {
       _setLoadedError();
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Error loading levels: ${e.toString().split('\n').first}'),
+            content:
+                Text('Error loading levels: ${e.toString().split('\n').first}'),
             backgroundColor: Colors.red,
             duration: const Duration(seconds: 2),
           ),
@@ -130,10 +132,16 @@ class _LevelState extends State<Level> {
                 Container(
                   padding: const EdgeInsets.all(24),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primary.withOpacity(0.08),
+                    color:
+                        Theme.of(context).colorScheme.primary.withOpacity(0.08),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(icon, size: 56, color: Theme.of(context).colorScheme.primary.withOpacity(0.7)),
+                  child: Icon(icon,
+                      size: 56,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withOpacity(0.7)),
                 ),
                 const SizedBox(height: 24),
                 Text(
@@ -240,13 +248,18 @@ class _LevelState extends State<Level> {
                       const SizedBox(height: 6),
                       Row(
                         children: [
-                          Icon(Icons.touch_app_rounded, size: 14, color: Colors.grey.shade500),
+                          Icon(Icons.touch_app_rounded,
+                              size: 14, color: Colors.grey.shade500),
                           const SizedBox(width: 6),
-                          Text(
-                            'Tap to explore categories',
-                            style: TextStyle(
-                              color: Colors.grey.shade600,
-                              fontSize: 13,
+                          Expanded(
+                            child: Text(
+                              'Tap to explore categories',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.grey.shade600,
+                                fontSize: 13,
+                              ),
                             ),
                           ),
                         ],
@@ -260,7 +273,8 @@ class _LevelState extends State<Level> {
                     color: color.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Icon(Icons.arrow_forward_rounded, color: color, size: 22),
+                  child:
+                      Icon(Icons.arrow_forward_rounded, color: color, size: 22),
                 ),
               ],
             ),
@@ -304,28 +318,38 @@ class _LevelState extends State<Level> {
                       ),
                     )
                   : RefreshIndicator(
-        onRefresh: load,
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Theme.of(context).colorScheme.primary.withOpacity(0.06),
-                Colors.white,
-              ],
-            ),
-          ),
-          child: ListView.builder(
-            padding: const EdgeInsets.fromLTRB(16, 20, 16, 100),
-            itemCount: Lid.length,
-            itemBuilder: (context, index) {
-              final color = _getColorForIndex(index);
-              return _buildLevelCard(index, color);
-            },
-          ),
-        ),
-      ),
+                      onRefresh: load,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withOpacity(0.06),
+                              Colors.white,
+                            ],
+                          ),
+                        ),
+                        child: ListView.builder(
+                          padding: EdgeInsets.fromLTRB(
+                            16,
+                            20,
+                            16,
+                            MediaQuery.of(context).padding.bottom +
+                                kBottomNavigationBarHeight +
+                                24,
+                          ),
+                          itemCount: Lid.length,
+                          itemBuilder: (context, index) {
+                            final color = _getColorForIndex(index);
+                            return _buildLevelCard(index, color);
+                          },
+                        ),
+                      ),
+                    ),
     );
   }
 }
