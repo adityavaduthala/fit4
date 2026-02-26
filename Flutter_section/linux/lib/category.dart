@@ -115,12 +115,10 @@ class _CategoryState extends State<Category> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Theme.of(context).primaryColor,
-        title: Text(
+        title: const Text(
           'Fitness Categories',
           style: TextStyle(
             fontWeight: FontWeight.w600,
-            color: Colors.white,
           ),
         ),
       ),
@@ -131,36 +129,41 @@ class _CategoryState extends State<Category> {
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
               colors: [
-                Theme.of(context).primaryColor.withOpacity(0.1),
+                Theme.of(context).colorScheme.primary.withOpacity(0.06),
                 Colors.white,
               ],
             ),
           ),
           child: ListView.builder(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.fromLTRB(16, 20, 16, 100),
             itemCount: Cid.length,
             itemBuilder: (context, index) {
               final color = _getColorForIndex(index);
               return Container(
-                margin: EdgeInsets.only(bottom: 16),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 10,
-                      offset: Offset(0, 5),
+                      color: color.withOpacity(0.12),
+                      blurRadius: 12,
+                      offset: const Offset(0, 4),
+                    ),
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.06),
+                      blurRadius: 20,
+                      offset: const Offset(0, 8),
                     ),
                   ],
                 ),
                 child: Material(
                   color: Colors.transparent,
                   child: InkWell(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(20),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -170,70 +173,88 @@ class _CategoryState extends State<Category> {
                       );
                     },
                     child: Padding(
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(20),
                       child: Row(
                         children: [
                           Container(
-                            width: 60,
-                            height: 60,
+                            width: 64,
+                            height: 64,
                             decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: color.withOpacity(0.1),
+                              gradient: LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: [color, color.withOpacity(0.8)],
+                              ),
+                              borderRadius: BorderRadius.circular(18),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: color.withOpacity(0.35),
+                                  blurRadius: 10,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ],
                             ),
                             child: Center(
                               child: Text(
                                 Cname[index][0].toUpperCase(),
-                                style: TextStyle(
-                                  color: color,
-                                  fontSize: 20,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 26,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
                           ),
-                          SizedBox(width: 16),
+                          const SizedBox(width: 18),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   Cname[index],
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black87,
+                                    letterSpacing: 0.2,
                                   ),
                                 ),
-                                SizedBox(height: 4),
+                                const SizedBox(height: 6),
                                 Text(
-                                  'Category ID: ${Cid[index]}',
+                                  'Browse or start workout',
                                   style: TextStyle(
                                     color: Colors.grey.shade600,
-                                    fontSize: 14,
+                                    fontSize: 13,
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                          ElevatedButton(
-                            onPressed: () => _startSession(Cid[index]),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: color,
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 12,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Material(
+                                color: color,
+                                borderRadius: BorderRadius.circular(14),
+                                child: InkWell(
+                                  borderRadius: BorderRadius.circular(14),
+                                  onTap: () => _startSession(Cid[index]),
+                                  child: const Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                                    child: Text(
+                                      'Start',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            child: Text(
-                              'Start',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                              const SizedBox(height: 8),
+                              Icon(Icons.arrow_forward_rounded, color: color.withOpacity(0.7), size: 18),
+                            ],
                           ),
                         ],
                       ),
@@ -392,7 +413,7 @@ class _ExerciseDetailPageState extends State<ExerciseDetailPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(
           widget.ename,
           style: TextStyle(
@@ -410,7 +431,7 @@ class _ExerciseDetailPageState extends State<ExerciseDetailPage> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Theme.of(context).primaryColor.withOpacity(0.1),
+                Theme.of(context).colorScheme.primary.withOpacity(0.1),
                 Colors.white,
               ],
             ),
@@ -419,23 +440,28 @@ class _ExerciseDetailPageState extends State<ExerciseDetailPage> {
             children: [
               // Progress indicator
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    LinearProgressIndicator(
-                      value: (widget.currentExerciseIndex + 1) /
-                          widget.totalExercises,
-                      backgroundColor: Colors.grey.shade200,
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                          Theme.of(context).primaryColor),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: LinearProgressIndicator(
+                        value: (widget.currentExerciseIndex + 1) / widget.totalExercises,
+                        backgroundColor: Colors.grey.shade200,
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          Theme.of(context).colorScheme.primary,
+                        ),
+                        minHeight: 8,
+                      ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 10),
                     Text(
-                      'Exercise ${widget.currentExerciseIndex + 1}/${widget.totalExercises}',
+                      'Exercise ${widget.currentExerciseIndex + 1} of ${widget.totalExercises}',
                       style: TextStyle(
                         color: Colors.grey.shade600,
                         fontSize: 14,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ],
@@ -455,17 +481,22 @@ class _ExerciseDetailPageState extends State<ExerciseDetailPage> {
                           aspectRatio: 16 / 9,
                           child: Container(
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
+                              borderRadius: BorderRadius.circular(20),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 5),
+                                  color: Theme.of(context).colorScheme.primary.withOpacity(0.12),
+                                  blurRadius: 16,
+                                  offset: const Offset(0, 6),
+                                ),
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.08),
+                                  blurRadius: 12,
+                                  offset: const Offset(0, 4),
                                 ),
                               ],
                             ),
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(15),
+                              borderRadius: BorderRadius.circular(20),
                               child: Image.network(
                                 _imageUrl!,
                                 fit: BoxFit.cover,
@@ -477,15 +508,20 @@ class _ExerciseDetailPageState extends State<ExerciseDetailPage> {
 
                         // Exercise Details Card
                         Container(
-                          padding: EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(24),
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(24),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
-                                blurRadius: 10,
-                                offset: Offset(0, 5),
+                                color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                                blurRadius: 20,
+                                offset: const Offset(0, 8),
+                              ),
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.06),
+                                blurRadius: 16,
+                                offset: const Offset(0, 4),
                               ),
                             ],
                           ),
@@ -494,28 +530,38 @@ class _ExerciseDetailPageState extends State<ExerciseDetailPage> {
                             children: [
                               Text(
                                 widget.ename,
-                                style: TextStyle(
-                                  fontSize: 24,
+                                style: const TextStyle(
+                                  fontSize: 22,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black87,
+                                  letterSpacing: 0.2,
                                 ),
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 12),
                               Text(
                                 widget.eformat,
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 15,
+                                  height: 1.4,
                                   color: Colors.grey.shade600,
                                 ),
                               ),
-                              SizedBox(height: 16),
-                              Center(
-                                child: Text(
-                                  widget.timeElapsed,
-                                  style: TextStyle(
-                                    fontSize: 48,
-                                    fontWeight: FontWeight.bold,
-                                    color: Theme.of(context).primaryColor,
+                              const SizedBox(height: 24),
+                              Container(
+                                padding: const EdgeInsets.symmetric(vertical: 20),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.primary.withOpacity(0.08),
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    widget.timeElapsed,
+                                    style: TextStyle(
+                                      fontSize: 42,
+                                      fontWeight: FontWeight.bold,
+                                      letterSpacing: 2,
+                                      color: Theme.of(context).colorScheme.primary,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -530,47 +576,51 @@ class _ExerciseDetailPageState extends State<ExerciseDetailPage> {
 
               // Bottom buttons
               Padding(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
                 child: Row(
                   children: [
                     Expanded(
-                      child: ElevatedButton(
+                      child: OutlinedButton(
                         onPressed: _resetTimer,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey.shade200,
-                          padding: EdgeInsets.symmetric(vertical: 16),
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: Colors.grey.shade700,
+                          padding: const EdgeInsets.symmetric(vertical: 18),
+                          side: BorderSide(color: Colors.grey.shade300),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(16),
                           ),
                         ),
-                        child: Text(
-                          'Reset Timer',
-                          style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.refresh_rounded, size: 22),
+                            SizedBox(width: 8),
+                            Text('Reset Timer', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                          ],
                         ),
                       ),
                     ),
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     Expanded(
-                      child: ElevatedButton(
+                      flex: 2,
+                      child: FilledButton(
                         onPressed: widget.onNext,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).primaryColor,
-                          padding: EdgeInsets.symmetric(vertical: 16),
+                        style: FilledButton.styleFrom(
+                          backgroundColor: Theme.of(context).colorScheme.primary,
+                          padding: const EdgeInsets.symmetric(vertical: 18),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(16),
                           ),
+                          elevation: 2,
+                          shadowColor: Theme.of(context).colorScheme.primary.withOpacity(0.3),
                         ),
-                        child: Text(
-                          'Next Exercise',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Next Exercise', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                            SizedBox(width: 8),
+                            Icon(Icons.arrow_forward_rounded, size: 22),
+                          ],
                         ),
                       ),
                     ),
@@ -588,88 +638,94 @@ class _ExerciseDetailPageState extends State<ExerciseDetailPage> {
 class CompletionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final primary = Theme.of(context).colorScheme.primary;
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Theme.of(context).primaryColor,
-        title: Text(
-          'Workout Complete',
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
-      ),
       body: Container(
+        width: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
             colors: [
-              Theme.of(context).primaryColor.withOpacity(0.1),
+              primary.withOpacity(0.12),
+              primary.withOpacity(0.05),
               Colors.white,
             ],
           ),
         ),
-        child: Center(
+        child: SafeArea(
           child: Padding(
-            padding: EdgeInsets.all(24),
+            padding: const EdgeInsets.symmetric(horizontal: 28),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  width: 120,
-                  height: 120,
+                  padding: const EdgeInsets.all(28),
                   decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [primary, primary.withOpacity(0.85)],
+                    ),
                     shape: BoxShape.circle,
-                    color: Theme.of(context).primaryColor.withOpacity(0.1),
+                    boxShadow: [
+                      BoxShadow(
+                        color: primary.withOpacity(0.4),
+                        blurRadius: 24,
+                        offset: const Offset(0, 8),
+                      ),
+                    ],
                   ),
-                  child: Icon(
-                    Icons.check_circle,
-                    size: 80,
-                    color: Theme.of(context).primaryColor,
+                  child: const Icon(
+                    Icons.emoji_events_rounded,
+                    size: 72,
+                    color: Colors.white,
                   ),
                 ),
-                SizedBox(height: 24),
+                const SizedBox(height: 32),
                 Text(
-                  'Congratulations!',
+                  'Workout complete!',
                   style: TextStyle(
-                    fontSize: 32,
+                    fontSize: 28,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black87,
+                    color: Colors.grey.shade800,
+                    letterSpacing: 0.3,
                   ),
+                  textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 12),
                 Text(
-                  'You have completed your workout session',
+                  'You crushed it. Keep up the great work.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.black,
+                    fontSize: 16,
+                    height: 1.4,
+                    color: Colors.grey.shade600,
                   ),
                 ),
-                SizedBox(height: 32),
-                ElevatedButton(
-                  onPressed: () {
-                    // Navigate to your registration or sign-up screen here
-                    Navigator.push(
+                const SizedBox(height: 40),
+                SizedBox(
+                  width: double.infinity,
+                  child: FilledButton.icon(
+                    onPressed: () {
+                      Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => Home()));
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).primaryColor,
-                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                        MaterialPageRoute(builder: (context) => const Home()),
+                      );
+                    },
+                    icon: const Icon(Icons.home_rounded, size: 22),
+                    label: const Text(
+                      'Back to Home',
+                      style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
                     ),
-                  ),
-                  child: Text(
-                    'Return to Home',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                    style: FilledButton.styleFrom(
+                      backgroundColor: primary,
+                      padding: const EdgeInsets.symmetric(vertical: 18),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      elevation: 2,
+                      shadowColor: primary.withOpacity(0.35),
                     ),
                   ),
                 ),

@@ -6,8 +6,10 @@ import 'package:http/http.dart' as http;
 import 'package:fit4/login.dart';
 
 class RegistrationPage extends StatefulWidget {
+  const RegistrationPage({super.key});
+
   @override
-  _RegistrationPageState createState() => _RegistrationPageState();
+  State<RegistrationPage> createState() => _RegistrationPageState();
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
@@ -38,37 +40,57 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   @override
   Widget build(BuildContext context) {
+    final primary = Theme.of(context).colorScheme.primary;
     return Scaffold(
-
+      appBar: AppBar(
+        title: const Text('Create account'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: Container(
+        width: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Theme.of(context).primaryColor, Colors.blue.shade900],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              primary.withOpacity(0.15),
+              Colors.white,
+            ],
           ),
         ),
         child: SafeArea(
           child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Card(
-                elevation: 8.0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        Icon(
-                          Icons.person_add,
-                          size: 80,
-                          color: Theme.of(context).primaryColor,
+            padding: const EdgeInsets.all(16.0),
+            child: Card(
+              margin: const EdgeInsets.symmetric(horizontal: 8),
+              elevation: 6.0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.person_add_rounded,
+                        size: 64,
+                        color: primary,
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'Sign up',
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey.shade800,
                         ),
-                        const SizedBox(height: 24.0),
+                      ),
+                      const SizedBox(height: 24.0),
                         buildTextField(
                           controller: nameController,
                           label: 'Name',
@@ -210,7 +232,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         const SizedBox(height: 24.0),
                         SizedBox(
                           width: double.infinity,
-                          child: ElevatedButton(
+                          child: FilledButton(
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
                                 try {
@@ -235,10 +257,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   var jsonData = json.decode(data.body);
                                   String status = jsonData['status'] ?? "";
                                   if (status == "user") {
-                                    Navigator.push(
+                                    if (!context.mounted) return;
+                                    Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => login(),
+                                        builder: (context) => const login(),
                                       ),
                                     );
                                   } else {
@@ -262,15 +285,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 }
                               }
                             },
-                            style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.symmetric(vertical: 16.0),
+                            style: FilledButton.styleFrom(
+                              backgroundColor: primary,
+                              padding: const EdgeInsets.symmetric(vertical: 16.0),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
                             ),
-                            child: Text(
+                            child: const Text(
                               'Register',
-                              style: TextStyle(fontSize: 16.0),
+                              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600),
                             ),
                           ),
                         ),
@@ -282,7 +306,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
             ),
           ),
         ),
-      ),
     );
   }
 
@@ -300,7 +323,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
       keyboardType: keyboardType,
       style: TextStyle(color: Colors.black),
       decoration: InputDecoration(
-        prefixIcon: Icon(icon, color: Theme.of(context).primaryColor),
+        prefixIcon: Icon(icon, color: Theme.of(context).colorScheme.primary),
         labelText: label,
         labelStyle: TextStyle(color: Colors.black54),
         border: OutlineInputBorder(
@@ -312,7 +335,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.0),
-          borderSide: BorderSide(color: Theme.of(context).primaryColor),
+          borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
         ),
         fillColor: Colors.white,
         filled: true,

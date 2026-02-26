@@ -20,16 +20,47 @@ class _AmbulanceState extends State<Ambulance> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.grey,
-        scaffoldBackgroundColor: Colors.black,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF0D47A1),
+          brightness: Brightness.light,
+          primary: const Color(0xFF0D47A1),
+        ),
+        scaffoldBackgroundColor: const Color(0xFFF5F5F5),
         appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.black,
-          titleTextStyle: TextStyle(color: Colors.white, fontSize: 20),
+          backgroundColor: Color(0xFF0D47A1),
+          foregroundColor: Colors.white,
+          elevation: 0,
+          titleTextStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         textTheme: const TextTheme(
-          bodyMedium: TextStyle(color: Colors.white),
-          bodyLarge: TextStyle(color: Colors.white),
-          bodySmall: TextStyle(color: Colors.white),
+          bodyMedium: TextStyle(color: Colors.black87),
+          bodyLarge: TextStyle(color: Colors.black87),
+          bodySmall: TextStyle(color: Colors.black54),
+        ),
+        cardTheme: CardThemeData(
+          elevation: 4,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            elevation: 2,
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
         ),
       ),
       home: const ipset(),
@@ -53,13 +84,9 @@ class _ipsetstate extends State<ipset> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        Navigator.of(context).pop(true);
-        return true;
-      },
+    return PopScope(
+      canPop: true,
       child: Scaffold(
-
         body: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(

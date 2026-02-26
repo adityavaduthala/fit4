@@ -106,9 +106,21 @@ class _UserLogState extends State<UserLog> {
 
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
+      if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(jsonData['message'])),
+        SnackBar(
+          content: Text(jsonData['message'] ?? 'Saved'),
+          backgroundColor: Colors.green,
+        ),
       );
+      _goalController.clear();
+      setState(() {
+        _selectedLevel = null;
+        _selectedCategory = null;
+        _selectedExercise = null;
+        _categories = [];
+        _exercises = [];
+      });
     } else {
       final jsonData = jsonDecode(response.body);
       ScaffoldMessenger.of(context).showSnackBar(
@@ -120,14 +132,20 @@ class _UserLogState extends State<UserLog> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      appBar: AppBar(
+        title: const Text('Log Achievement'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Theme.of(context).primaryColor.withOpacity(0.1),
+              Theme.of(context).colorScheme.primary.withOpacity(0.1),
               Colors.white,
             ],
           ),
@@ -164,7 +182,7 @@ class _UserLogState extends State<UserLog> {
                             displayColor: Colors.black,
                           ),
                         ),
-                        child: DropdownButtonFormField<String>(
+                        child: DropdownButtonFormField<String?>(
                           value: _selectedLevel,
                           onChanged: (newValue) {
                             setState(() {
@@ -174,11 +192,13 @@ class _UserLogState extends State<UserLog> {
                             });
                             if (newValue != null) fetchCategories(newValue);
                           },
-                          items: _levels.map((level) {
+                          items: _levels.isEmpty
+                              ? [const DropdownMenuItem<String?>(value: null, child: Text('No levels available'))]
+                              : _levels.map((level) {
                             return DropdownMenuItem(
                               value: level['level_id'].toString(),
                               child: Text(
-                                level['lname'],
+                                level['lname'] ?? '',
                                 style: const TextStyle(color: Colors.black),
                               ),
                             );
@@ -290,11 +310,12 @@ class _UserLogState extends State<UserLog> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        child: const Text(
+                        child: Text(
                           'Submit Achievement',
                           style: TextStyle(
                             fontSize: 16,
-                            color: Colors.black, // Keeping button text white for contrast
+                            fontWeight: FontWeight.w600,
+                            color: Theme.of(context).colorScheme.onPrimary,
                           ),
                         ),
                       ),
